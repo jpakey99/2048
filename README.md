@@ -10,3 +10,4 @@ This project will not only provide users with the ability to play the game, but 
 - Combining of cells works
 
 # Domain Diagram
+![Domain Model for 2048 Game Only](C:\Users\jpake\Documents\2048\Domain Model)
