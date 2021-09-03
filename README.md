@@ -11,3 +11,6 @@ This project will not only provide users with the ability to play the game, but 
 
 # Domain Diagram
 ![Domain Model](https://user-images.githubusercontent.com/15817820/132010793-20a92f36-72d5-43cd-9ae1-a8831cc83135.PNG)
+
+# Class Diagram
+![2048 Game Class Diagram](https://user-images.githubusercontent.com/15817820/132012368-19f8b9ce-2539-4022-81d5-e000daf39da7.PNG)
