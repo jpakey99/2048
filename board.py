@@ -1,5 +1,5 @@
 import random
-
+from check_game import Checks
 
 class Board:
     def __init__(self):
@@ -10,24 +10,8 @@ class Board:
         self.rows = [self.row1, self.row2, self.row3, self.row4]
 
     def is_game_over(self) -> bool:
-        # first check to see if all places are empty
-        # then check to see if any places can be combined
-        return False
-
-    def check_empty_cell(self) -> bool:
-        return False
-
-    def check_swipe_right(self) -> bool:
-        return False
-
-    def check_swipe_left(self) -> bool:
-        return False
-
-    def check_swipe_up(self) -> bool:
-        return False
-
-    def check_swipe_down(self) -> bool:
-        return False
+        checks  = Checks(self)
+        return checks.check_situation()
 
     def get_point_total(self) -> int:
         score = 0
