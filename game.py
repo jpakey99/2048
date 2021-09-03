@@ -1,5 +1,6 @@
 from Game.board import Board
 from UserInterface.console import ConsoleUI
+from Game.swipe import LeftSwipe, RightSwipe, UpSwipe, DownSwipe
 
 
 class Game:
@@ -13,13 +14,14 @@ class Game:
             self.ui.display()
             move = self.ui.make_move()
             if move == '0':
-                pass
+                swipe = LeftSwipe(self.board)
             elif move == '1':
-                pass
+                swipe = RightSwipe(self.board)
             elif move == '2':
-                pass
+                swipe = UpSwipe(self.board)
             elif move == '3':
-                pass
+                swipe = DownSwipe(self.board)
+            swipe.perform_swipe()
 
 
 game = Game()
