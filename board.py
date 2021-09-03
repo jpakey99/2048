@@ -5,37 +5,28 @@ class Board:
         self.row3 = [0, 0, 0, 0]
         self.row4 = [0, 0, 0, 0]
 
-    def is_game_over(self):
+    def is_game_over(self)->bool:
         # first check to see if all places are empty
         # then check to see if any places can be combined
         pass
 
-    def combine_right(self):
+    def check_empty_cell(self)->bool:
         pass
 
-    def combine_left(self):
+    def check_swipe_right(self)->bool:
         pass
 
-    def combine_up(self):
+    def check_swipe_left(self)->bool:
         pass
 
-    def combine_down(self):
+    def check_swipe_up(self)->bool:
         pass
 
-    def check_combine_right(self):
+    def check_swipe_down(self)->bool:
         pass
 
-    def check_combine_left(self):
+    def get_point_total(self)->int:
         pass
 
-    def check_combine_up(self):
-        pass
-
-    def check_combine_down(self):
-        pass
-
-    def get_score(self):
-        pass
-
-    def piece_to_board(self):
+    def new_cell(self):
         pass
