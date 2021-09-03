@@ -10,4 +10,4 @@ This project will not only provide users with the ability to play the game, but 
 - Combining of cells works
 
 # Domain Diagram
-![Domain Model for 2048 Game Only](Domain Model.png)
+![Domain Model](https://user-images.githubusercontent.com/15817820/132010793-20a92f36-72d5-43cd-9ae1-a8831cc83135.PNG)
