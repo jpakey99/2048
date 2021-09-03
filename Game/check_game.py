@@ -1,8 +1,5 @@
-from board import Board
-
-
 class CheckGame:
-    def __init__(self, board:Board):
+    def __init__(self, board):
         self.board = board
 
     def check_situation(self) -> bool:
@@ -11,7 +8,7 @@ class CheckGame:
 
 
 class Checks(CheckGame):
-    def __init__(self, board: Board):
+    def __init__(self, board):
         super().__init__(board)
         self.children = [CheckEmptyCells(board), CheckSwipeUp(board), CheckSwipeLeft(board), CheckSwipeDown(board), CheckSwipeRight(board)]
 
@@ -25,7 +22,7 @@ class Checks(CheckGame):
 
 
 class CheckEmptyCells(CheckGame):
-    def __init__(self, board: Board):
+    def __init__(self, board):
         super().__init__(board)
 
     def check_situation(self) -> bool:
@@ -37,7 +34,7 @@ class CheckEmptyCells(CheckGame):
 
 
 class CheckSwipeLeft(CheckGame):
-    def __init__(self, board: Board):
+    def __init__(self, board):
         super().__init__(board)
 
     def check_situation(self) -> bool:
@@ -45,7 +42,7 @@ class CheckSwipeLeft(CheckGame):
 
 
 class CheckSwipeRight(CheckGame):
-    def __init__(self, board: Board):
+    def __init__(self, board):
         super().__init__(board)
 
     def check_situation(self) -> bool:
@@ -53,7 +50,7 @@ class CheckSwipeRight(CheckGame):
 
 
 class CheckSwipeUp(CheckGame):
-    def __init__(self, board: Board):
+    def __init__(self, board):
         super().__init__(board)
 
     def check_situation(self) -> bool:
@@ -61,7 +58,7 @@ class CheckSwipeUp(CheckGame):
 
 
 class CheckSwipeDown(CheckGame):
-    def __init__(self, board: Board):
+    def __init__(self, board):
         super().__init__(board)
 
     def check_situation(self) -> bool:

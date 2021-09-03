@@ -1,4 +1,4 @@
-from board import Board
+from Game.board import Board
 
 class Swipe:
     def __init__(self, board: Board):

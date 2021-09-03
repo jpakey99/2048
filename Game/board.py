@@ -1,5 +1,5 @@
 import random
-from check_game import Checks
+from Game.check_game import Checks
 
 class Board:
     def __init__(self):
@@ -11,7 +11,7 @@ class Board:
 
     def is_game_over(self) -> bool:
         checks  = Checks(self)
-        return checks.check_situation()
+        return not checks.check_situation()
 
     def get_point_total(self) -> int:
         score = 0
