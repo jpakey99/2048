@@ -1,5 +1,5 @@
 import random
-from Game.check_game import Checks
+from Game.check_game import Checks, CheckSwipeVertical, CheckSwipeHorizontal
 
 class Board:
     def __init__(self):
