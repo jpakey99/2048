@@ -2,10 +2,49 @@ import kivy, math, time
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 # UI Elements
-from kivy.uix.label import Label
+from kivy.uix.button import Button
 from kivy.clock import Clock
 from Game.board import Board
 from Game.swipe import LeftSwipe, RightSwipe, UpSwipe, DownSwipe
+from kivy.graphics import Color, Rectangle
+
+C0, C2, C4, C8, C16, C32, C64, C128, C256, C512, C1024, C2048, C4096 = (.836,.901,.766),(.922,.891,.852),(.922,.875,.781),(.945,177,.473),(.957,.582,.387),(.957,.484,.371),(.961,.262,.691),(.926,.805,.441),(.926,.805,.441),(.922,.781,.313),(.926,.77,.246),(.93,.758,.18),(0,0,0),
+
+
+class Cell(Button):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if self.text == '0':
+            self.background_color = C0
+        elif self.text == '2':
+            self.background_color = C2
+        elif self.text == '4':
+            self.background_color = C4
+        elif self.text == '8':
+            self.background_color = C8
+        elif self.text == '16':
+            self.background_color = C16
+        elif self.text == '32':
+            self.background_color = C32
+        elif self.text == '64':
+            self.background_color = C64
+        elif self.text == '128':
+            self.background_color = C128
+        elif self.text == '256':
+            self.background_color = C256
+        elif self.text == '512':
+            self.background_color = C512
+        elif self.text == '1024':
+            self.background_color = C1024
+        elif self.text == '2048':
+            self.background_color = C2048
+        else:
+            self.background_color = C4096
+
+        if self.text in ['2', '4']:
+            self.color = (0,0,0)
+        else:
+            self.color = (1,1,1)
 
 
 class GameGUI(GridLayout):
@@ -22,7 +61,7 @@ class GameGUI(GridLayout):
         self.clear_widgets()
         for row in self.board.rows:
             for cell in row:
-                self.add_widget(Label(text=str(cell)))
+                self.add_widget(Cell(text=str(cell)))
 
     def play_game(self, _):
         if self.board.is_game_over():
