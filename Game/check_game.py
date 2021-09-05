@@ -19,7 +19,6 @@ class Checks(CheckGame):
         # needs one situation to return True for game to continue
         for child in self.children:
             res = child.check_situation()
-            print(type(child), res)
             if res:
                 return True
         return False
@@ -33,8 +32,8 @@ class CheckEmptyCells(CheckGame):
         for row in self.board.rows:
             for cell in row:
                 if cell == 0:
-                    return False
-        return True
+                    return True
+        return False
 
 
 class CheckSwipeHorizontal(CheckGame):
@@ -46,6 +45,7 @@ class CheckSwipeHorizontal(CheckGame):
             prev_cell = 0
             for cell in row:
                 if prev_cell != 0 and prev_cell == cell:
+                    print("Horizontal")
                     return True
                 elif prev_cell != cell:
                     prev_cell = cell
@@ -61,6 +61,7 @@ class CheckSwipeVertical(CheckGame):
             prev_cell = 0
             for row in self.board.rows:
                 if prev_cell != 0 and row[index] == prev_cell:
+                    print("Vertical")
                     return True
                 elif prev_cell != row[index]:
                     prev_cell = row[index]

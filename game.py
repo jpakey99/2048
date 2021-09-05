@@ -3,15 +3,18 @@ from UserInterface.console import ConsoleUI
 from Game.swipe import LeftSwipe, RightSwipe, UpSwipe, DownSwipe
 
 
+
 class Game:
-    def __init__(self):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.board = Board()
-        self.ui = ConsoleUI(self.board) # maybe a parameter in the future?
+        self.ui = ConsoleUI(self.board)
 
     def play_game(self):
-        while self.board.is_game_over():
+        while not self.board.is_game_over():
             self.board.new_cell()
             self.ui.display()
+
             move = self.ui.make_move()
             if move == '0':
                 swipe = LeftSwipe(self.board)
@@ -24,5 +27,5 @@ class Game:
             swipe.perform_swipe()
 
 
-game = Game()
-game.play_game()
+g = Game()
+g.play_game()
