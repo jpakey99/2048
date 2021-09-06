@@ -45,3 +45,12 @@ class Board:
                 output_string += str(cell) + '\t'
             output_string += '\n'
         print(output_string)
+
+    def __eq__(self, other):
+        if isinstance(other, Board):
+            for row_index in range(0, len(self.rows)):
+                for cell_index in range(0, len(self.rows[row_index])):
+                    if self.rows[row_index][cell_index] != other.rows[row_index][cell_index]:
+                        return False
+            return True
+        return False
