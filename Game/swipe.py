@@ -20,16 +20,27 @@ class LeftSwipe(Swipe):
             if self.board.rows[row_index][cell_index-1] == self.board.rows[row_index][cell_index]:
                 self.board.rows[row_index][cell_index - 1] = self.board.rows[row_index][cell_index-1] * 2
                 self.board.rows[row_index][cell_index] = 0
-            elif self.board.rows[row_index][cell_index-1] == 0:
-                self.board.rows[row_index][cell_index - 1] = self.board.rows[row_index][cell_index]
-                self.board.rows[row_index][cell_index] = 0
-                self.move_cell(row_index, cell_index-1)
+
+    def move_over(self, row_index, cell_index):
+        if cell_index == 0:
+            pass
+        elif self.board.rows[row_index][cell_index-1] == 0:
+            self.board.rows[row_index][cell_index - 1] = self.board.rows[row_index][cell_index]
+            self.board.rows[row_index][cell_index] = 0
+            self.move_over(row_index, cell_index - 1)
 
     def perform_swipe(self):
         row_index, cell_index = 0, 0
         for row in self.board.rows:
             for cell in row:
                 self.move_cell(row_index, cell_index)
+                cell_index += 1
+            row_index += 1
+            cell_index = 0
+        row_index, cell_index = 0, 0
+        for row in self.board.rows:
+            for cell in row:
+                self.move_over(row_index, cell_index)
                 cell_index += 1
             row_index += 1
             cell_index = 0
@@ -47,16 +58,29 @@ class RightSwipe(Swipe):
             if self.board.rows[row_index][cell_index + 1] == self.board.rows[row_index][cell_index]:
                 self.board.rows[row_index][cell_index + 1] = self.board.rows[row_index][cell_index + 1] * 2
                 self.board.rows[row_index][cell_index] = 0
-            elif self.board.rows[row_index][cell_index + 1] == 0:
-                self.board.rows[row_index][cell_index + 1] = self.board.rows[row_index][cell_index]
-                self.board.rows[row_index][cell_index] = 0
-                self.move_cell(row_index, cell_index + 1)
+            elif self.board.rows[row_index][cell_index+1] == 0:
+                self.move_cell(row_index, cell_index+1)
+
+    def move_over(self, row_index, cell_index):
+        if cell_index == 3:
+            pass
+        elif self.board.rows[row_index][cell_index + 1] == 0:
+            self.board.rows[row_index][cell_index + 1] = self.board.rows[row_index][cell_index]
+            self.board.rows[row_index][cell_index] = 0
+            self.move_over(row_index, cell_index + 1)
 
     def perform_swipe(self):
         row_index, cell_index = 0, 0
         for row in self.board.rows:
             for cell in row:
                 self.move_cell(row_index, cell_index)
+                cell_index += 1
+            row_index += 1
+            cell_index = 0
+        row_index, cell_index = 0, 0
+        for row in self.board.rows:
+            for cell in row:
+                self.move_over(row_index, cell_index)
                 cell_index += 1
             row_index += 1
             cell_index = 0
@@ -73,16 +97,29 @@ class UpSwipe(Swipe):
             if self.board.rows[row_index-1][cell_index] == self.board.rows[row_index][cell_index]:
                 self.board.rows[row_index-1][cell_index] = self.board.rows[row_index-1][cell_index] * 2
                 self.board.rows[row_index][cell_index] = 0
-            elif self.board.rows[row_index -1][cell_index] == 0:
-                self.board.rows[row_index -1][cell_index] = self.board.rows[row_index][cell_index]
-                self.board.rows[row_index][cell_index] = 0
-                self.move_cell(row_index -1 , cell_index)
+            elif self.board.rows[row_index - 1][cell_index] == 0:
+                self.move_cell(row_index-1, cell_index)
+
+    def move_over(self, row_index, cell_index):
+        if row_index == 0:
+            pass
+        elif self.board.rows[row_index - 1][cell_index] == 0:
+            self.board.rows[row_index - 1][cell_index] = self.board.rows[row_index][cell_index]
+            self.board.rows[row_index][cell_index] = 0
+            self.move_over(row_index - 1, cell_index)
 
     def perform_swipe(self):
         row_index, cell_index = 0, 0
         for row in self.board.rows:
             for cell in row:
                 self.move_cell(row_index, cell_index)
+                cell_index += 1
+            row_index += 1
+            cell_index = 0
+        row_index, cell_index = 0, 0
+        for row in self.board.rows:
+            for cell in row:
+                self.move_over(row_index, cell_index)
                 cell_index += 1
             row_index += 1
             cell_index = 0
@@ -100,15 +137,28 @@ class DownSwipe(Swipe):
                 self.board.rows[row_index + 1][cell_index] = self.board.rows[row_index + 1][cell_index] * 2
                 self.board.rows[row_index][cell_index] = 0
             elif self.board.rows[row_index + 1][cell_index] == 0:
-                self.board.rows[row_index + 1][cell_index] = self.board.rows[row_index][cell_index]
-                self.board.rows[row_index][cell_index] = 0
-                self.move_cell(row_index + 1, cell_index)
+                self.move_cell(row_index+1, cell_index)
+
+    def move_over(self, row_index, cell_index):
+        if row_index == 3:
+            pass
+        elif self.board.rows[row_index + 1][cell_index] == 0:
+            self.board.rows[row_index + 1][cell_index] = self.board.rows[row_index][cell_index]
+            self.board.rows[row_index][cell_index] = 0
+            self.move_cell(row_index + 1, cell_index)
 
     def perform_swipe(self):
+        row_index, cell_index = 3, 0
+        for row in reversed(self.board.rows):
+            for cell in row:
+                self.move_cell(row_index, cell_index)
+                cell_index += 1
+            row_index -= 1
+            cell_index = 0
         row_index, cell_index = 0, 0
         for row in self.board.rows:
             for cell in row:
-                self.move_cell(row_index, cell_index)
+                self.move_over(row_index, cell_index)
                 cell_index += 1
             row_index += 1
             cell_index = 0
