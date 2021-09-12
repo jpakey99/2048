@@ -251,7 +251,25 @@ class DownSwipeTest(unittest.TestCase):
         pass
 
     def test_order_of_combining(self):
-        pass
+        start_board = Board()
+        start_board.rows = [
+            [0, 0, 0, 0],
+            [4, 0, 2, 2],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+
+        end_board = Board()
+        end_board.rows = [
+            [0, 0, 0, 0],
+            [0, 0, 4, 4],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+        CuT = RightSwipe(start_board)
+        CuT.perform_swipe()
+        CuT.board.print_board()
+        self.assertEqual(CuT.board, end_board, 'Swipe was not performed correctly')
 
     def test_cell_multi_combines(self):
         pass
