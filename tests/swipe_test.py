@@ -219,7 +219,7 @@ class RightSwipeTest(unittest.TestCase):
     def test_2(self):
         start_board = Board()
         start_board.rows = [
-            [0, 0, 2, 0],
+            [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 2, 0, 2],
             [0, 0, 0, 0]
