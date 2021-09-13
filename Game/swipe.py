@@ -6,6 +6,11 @@ class Swipe:
         self.board = board
 
     def perform_swipe(self):
+        # algorithm
+        # start on extreme side of swipe (Down swipe: lowest edge)
+        # move cell 1 increment at a time to far opposite extreme till it contacts a non 0 cell
+        # if cell is the same value, combine them.  Otherwise, go on to next step
+        # Move back towards extreme side till non-zero cell is reached, then exit
         pass
 
 
