@@ -1,7 +1,7 @@
 from Game.board import Board
 from Game.swipe import *
 import random
-from Game.check_game import CheckSwipeVertical, CheckSwipeHorizontal
+from Game.check_game import CheckRightSwipe, CheckLeftSwipe, CheckDownSwipe, CheckUpSwipe
 
 
 class RandomSimulation:
@@ -12,20 +12,20 @@ class RandomSimulation:
         swipe = None
         swipe_rand = random.randint(0,4)
         if swipe_rand == 0:
-            print(CheckSwipeHorizontal(self.board).check_situation(), 'left')
-            if CheckSwipeHorizontal(self.board).check_situation():
+            print(CheckLeftSwipe(self.board).check_situation(), 'left')
+            if CheckLeftSwipe(self.board).check_situation():
                 swipe = LeftSwipe(self.board)
         elif swipe_rand == 1:
-            print(CheckSwipeHorizontal(self.board).check_situation(), 'right')
-            if CheckSwipeHorizontal(self.board).check_situation():
+            print(CheckRightSwipe(self.board).check_situation(), 'right')
+            if CheckRightSwipe(self.board).check_situation():
                 swipe = RightSwipe(self.board)
         elif swipe_rand == 2:
-            print(CheckSwipeVertical(self.board).check_situation(), 'up')
-            if CheckSwipeVertical(self.board).check_situation():
+            print(CheckUpSwipe(self.board).check_situation(), 'up')
+            if CheckUpSwipe(self.board).check_situation():
                 swipe = UpSwipe(self.board)
         elif swipe_rand == 3:
-            print(CheckSwipeVertical(self.board).check_situation(), 'down')
-            if CheckSwipeVertical(self.board).check_situation():
+            print(CheckDownSwipe(self.board).check_situation(), 'down')
+            if CheckDownSwipe(self.board).check_situation():
                 swipe = DownSwipe(self.board)
 
         if swipe is not None:

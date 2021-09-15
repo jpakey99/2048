@@ -33,7 +33,6 @@ class CheckEmptyCells(CheckGame):
             for cell in row:
                 if cell == 0:
                     return True
-        print('no empty cells')
         return False
 
 
@@ -46,7 +45,6 @@ class CheckSwipeHorizontal(CheckGame):
             prev_cell = -1
             for cell in row:
                 if prev_cell != 0 and prev_cell == cell:
-                    print("Horizontal")
                     return True
                 elif prev_cell == 0 and cell != 0:
                     return True
@@ -63,7 +61,6 @@ class CheckSwipeVertical(CheckGame):
         for index in range(0,4):
             prev_cell = -1
             for row in self.board.rows:
-                print(prev_cell, row[index])
                 if prev_cell != -1 and row[index] == prev_cell:
                     return True
                 elif prev_cell == 0 and row[index] != 0:
