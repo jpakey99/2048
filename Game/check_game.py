@@ -90,3 +90,22 @@ class CheckLeftSwipe(CheckGame):
                 else:
                     prev_cell = cell
         return False
+
+
+class CheckRightSwipe(CheckGame):
+    def __init__(self, board):
+        super().__init__(board)
+
+    def check_situation(self) -> bool:
+        for row in self.board.rows:
+            prev_cell = -1
+            for cell in reversed(row):
+                if prev_cell == -1:
+                    prev_cell = cell
+                elif prev_cell != 0 and prev_cell == cell:
+                    return True
+                elif prev_cell == 0 and cell != 0:
+                    return True
+                else:
+                    prev_cell = cell
+        return False

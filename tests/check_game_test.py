@@ -266,5 +266,62 @@ class CheckLeftSwipeTest(unittest.TestCase):
         self.assertTrue(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
 
 
+class CheckRightSwipeTest(unittest.TestCase):
+    def test_right_swipe_standard(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 8, 0],
+            [0, 0, 0, 0]
+        ]
+        CuT = CheckRightSwipe(board)
+        self.assertTrue(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+    def test_no_right_swipe_single(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 2],
+            [0, 0, 0, 0]
+        ]
+        CuT = CheckRightSwipe(board)
+        self.assertFalse(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+    def test_combine_right(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 2, 8, 8],
+            [0, 0, 0, 0]
+        ]
+        CuT = CheckRightSwipe(board)
+        self.assertTrue(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+    def test_no_combine_right(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [2, 4, 8, 2],
+            [0, 0, 0, 0]
+        ]
+        CuT = CheckRightSwipe(board)
+        self.assertFalse(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+    def test_zero_in_middle(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [2, 0, 8, 4],
+            [0, 0, 0, 0]
+        ]
+        CuT = CheckRightSwipe(board)
+        self.assertTrue(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+
 if __name__ == '__main__':
     unittest.main()
