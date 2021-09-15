@@ -6,6 +6,7 @@ from kivy.uix.button import Button
 from kivy.clock import Clock
 from Game.board import Board
 from Game.swipe import LeftSwipe, RightSwipe, UpSwipe, DownSwipe
+from Game.check_game import CheckLeftSwipe, CheckRightSwipe, CheckDownSwipe, CheckUpSwipe
 from kivy.graphics import Color, Rectangle
 from kivy.core.window import Window
 
@@ -83,22 +84,28 @@ class GameGUI(GridLayout):
         self.touch = (touch.x, touch.y)
 
     def on_touch_up(self, touch):
+        move = None
         if abs(touch.x - self.touch[0]) > abs(touch.y - self.touch[1]):
             if touch.x - self.touch[0] < 0:
                 print('left swipe')
-                move = LeftSwipe(self.board)
+                if CheckLeftSwipe(self.board).check_situation():
+                    move = LeftSwipe(self.board)
             else:
                 print('right swipe')
-                move = RightSwipe(self.board)
+                if CheckRightSwipe(self.board).check_situation():
+                    move = RightSwipe(self.board)
         else:
             if touch.y - self.touch[1] > 0:
                 print('up swipe')
-                move = UpSwipe(self.board)
+                if CheckUpSwipe(self.board).check_situation():
+                    move = UpSwipe(self.board)
             else:
                 print('down swipe')
-                move = DownSwipe(self.board)
-        move.perform_swipe()
-        self.update_board()
+                if CheckDownSwipe(self.board).check_situation():
+                    move = DownSwipe(self.board)
+        if move is not None:
+            move.perform_swipe()
+            self.update_board()
 
 
 class GameApp(App):
