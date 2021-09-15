@@ -128,3 +128,22 @@ class CheckUpSwipe(CheckGame):
                 else:
                     prev_cell = row[index]
         return False
+
+
+class CheckDownSwipe(CheckGame):
+    def __init__(self, board):
+        super().__init__(board)
+
+    def check_situation(self) -> bool:
+        for index in range(0,4):
+            prev_cell = -1
+            for row in reversed(self.board.rows):
+                if prev_cell == -1:
+                    prev_cell = row[index]
+                elif prev_cell != 0 and prev_cell == row[index]:
+                    return True
+                elif prev_cell == 0 and row[index] != 0:
+                    return True
+                else:
+                    prev_cell = row[index]
+        return False

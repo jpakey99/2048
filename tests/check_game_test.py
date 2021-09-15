@@ -376,7 +376,64 @@ class CheckUpSwipeTest(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 4, 0]
         ]
-        CuT = CheckRightSwipe(board)
+        CuT = CheckUpSwipe(board)
+        self.assertTrue(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+
+class CheckDownSwipeTest(unittest.TestCase):
+    def test_down_swipe_standard(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 8, 0],
+            [0, 0, 0, 0]
+        ]
+        CuT = CheckDownSwipe(board)
+        self.assertTrue(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+    def test_no_down_swipe_single(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 2, 0]
+        ]
+        CuT = CheckDownSwipe(board)
+        self.assertFalse(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+    def test_no_combine_down(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 4, 0],
+            [0, 0, 2, 0],
+            [0, 0, 8, 0],
+            [0, 0, 2, 0]
+        ]
+        CuT = CheckDownSwipe(board)
+        self.assertFalse(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+    def test_combine_down(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 8, 0],
+            [0, 0, 8, 0],
+            [0, 0, 4, 0],
+            [0, 0, 2, 0]
+        ]
+        CuT = CheckDownSwipe(board)
+        self.assertTrue(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
+
+    def test_zero_in_middle(self):
+        board = Board()
+        board.rows = [
+            [0, 0, 4, 0],
+            [0, 0, 2, 0],
+            [0, 0, 0, 0],
+            [0, 0, 4, 0]
+        ]
+        CuT = CheckDownSwipe(board)
         self.assertTrue(CuT.check_situation(), 'No Empty Cells or swipes, game should not continue')
 
 

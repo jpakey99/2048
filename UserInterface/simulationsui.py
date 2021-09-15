@@ -1,13 +1,14 @@
-import kivy, math, time, os
+# from UserInterface.KivyGUI import Cell
+from Simulations.simulation import RandomSimulation
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 # UI Elements
 from kivy.uix.button import Button
 from kivy.clock import Clock
 from Game.board import Board
-from Game.swipe import LeftSwipe, RightSwipe, UpSwipe, DownSwipe
 from kivy.graphics import Color, Rectangle
 from kivy.core.window import Window
+
 
 C0, C2, C4, C8, C16, C32, C64, C128, C256, C512, C1024, C2048, C4096 = (214/255,205/255,196/255,1),(238/255,228/255,218/255,1),(237/255,224/255,200/255,1),(242/255,177/255,121/255,1),\
                                                                        (245/255,149/255,99/255,1),(246/255,124/255,95/255,1),(246/255,94/255,56/255,1),(237/255,207/255,114/255,1),\
@@ -54,9 +55,10 @@ class Cell(Button):
             self.color = (1,1,1)
 
 
-class GameGUI(GridLayout):
-    def __init__(self, board: Board, **kwargs):
+class SimulationUI(GridLayout):
+    def __init__(self, board: Board, simulation:RandomSimulation, **kwargs):
         super().__init__(**kwargs)
+        self.simulation = simulation
         self.cols, self.rows = 4,4
         self.board = board
         self.update_board()
@@ -64,6 +66,7 @@ class GameGUI(GridLayout):
         self.latest_move = None
         self.padding = (15, 15, 15, 15)
         self.spacing = (10, 10)
+        self.game_over = False
 
     def update_board(self):
         self.board.new_cell()
@@ -75,40 +78,27 @@ class GameGUI(GridLayout):
             Color(187/255, 173/255, 160/255, 1)
             Rectangle(pos=self.pos, size=Window.size)
 
-    def play_game(self, _):
+    def run_simulation(self, _):
         if self.board.is_game_over():
             self.clear_widgets()
-
-    def on_touch_down(self, touch):
-        self.touch = (touch.x, touch.y)
-
-    def on_touch_up(self, touch):
-        if abs(touch.x - self.touch[0]) > abs(touch.y - self.touch[1]):
-            if touch.x - self.touch[0] < 0:
-                print('left swipe')
-                move = LeftSwipe(self.board)
-            else:
-                print('right swipe')
-                move = RightSwipe(self.board)
+            self.game_over = True
         else:
-            if touch.y - self.touch[1] > 0:
-                print('up swipe')
-                move = UpSwipe(self.board)
-            else:
-                print('down swipe')
-                move = DownSwipe(self.board)
-        move.perform_swipe()
-        self.update_board()
+            move_made = False
+            while not move_made:
+                move_made = self.simulation.make_move()
+            self.update_board()
 
 
 class GameApp(App):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         board = Board()
-        self.gui = GameGUI(board)
+        self.gui = SimulationUI(board, RandomSimulation(board))
 
     def build(self):
-        Clock.schedule_interval(self.gui.play_game, 1/60)
+        clock = Clock.schedule_interval(self.gui.run_simulation, 1)
+        if self.gui.game_over:
+            Clock.unschedule(self.gui.run_simulation)
         return self.gui
 
 
