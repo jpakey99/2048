@@ -4,6 +4,7 @@ from Game.board import Board
 class Swipe:
     def __init__(self, board):
         self.board = board
+        self.score = 0
 
     def perform_swipe(self):
         # algorithm
@@ -19,37 +20,28 @@ class LeftSwipe(Swipe):
         super().__init__(board)
 
     def move_cell(self, row_index, cell_index, go_to_extreme=False):
-        # self.board.print_board()
-        # print(self.board.rows[row_index][cell_index])
-        # print(row_index)
         if self.board.rows[row_index][cell_index] == 0:
-            # print('0')
             pass
         elif go_to_extreme and cell_index == 0:
-            # print('ends going to extreme')
             pass
         elif not go_to_extreme and cell_index > 2:
-            # print('ran into nothing')
             self.move_cell(row_index, cell_index, True)
         elif not go_to_extreme:
-            # print('finding something to run into')
             if self.board.rows[row_index][cell_index+ 1] == 0:
-                # print('nothing here')
                 self.board.rows[row_index][cell_index+ 1] = self.board.rows[row_index][cell_index]
                 self.board.rows[row_index][cell_index] = 0
                 self.move_cell(row_index, cell_index+ 1, go_to_extreme)
             elif self.board.rows[row_index][cell_index+ 1] == self.board.rows[row_index][cell_index]:
                 self.board.rows[row_index][cell_index] = self.board.rows[row_index][cell_index] * 2
                 self.board.rows[row_index][cell_index+ 1] = 0
+                self.score += self.board.rows[row_index][cell_index]
                 self.move_cell(row_index, cell_index, True)
             else:
-                # print('some random number, heading back now')
                 self.move_cell(row_index, cell_index, True)
         elif go_to_extreme:
             if self.board.rows[row_index][cell_index- 1] == 0:
                 self.board.rows[row_index][cell_index- 1] = self.board.rows[row_index][cell_index]
                 self.board.rows[row_index][cell_index] = 0
-                # self.board.print_board()
                 self.move_cell(row_index, cell_index- 1, True)
             else:
                 pass
@@ -88,6 +80,7 @@ class RightSwipe(Swipe):
             elif self.board.rows[row_index][cell_index - 1] == self.board.rows[row_index][cell_index]:
                 self.board.rows[row_index][cell_index] = self.board.rows[row_index][cell_index] * 2
                 self.board.rows[row_index][cell_index - 1] = 0
+                self.score += self.board.rows[row_index][cell_index]
                 self.move_cell(row_index, cell_index, True)
             else:
                 # print('some random number, heading back now')
@@ -134,6 +127,7 @@ class UpSwipe(Swipe):
             elif self.board.rows[row_index + 1][cell_index] == self.board.rows[row_index][cell_index]:
                 self.board.rows[row_index][cell_index] = self.board.rows[row_index][cell_index] * 2
                 self.board.rows[row_index + 1][cell_index] = 0
+                self.score += self.board.rows[row_index][cell_index]
                 self.move_cell(row_index, cell_index, True)
             else:
                 # print('some random number, heading back now')
@@ -179,6 +173,7 @@ class DownSwipe(Swipe):
             elif self.board.rows[row_index-1][cell_index] == self.board.rows[row_index][cell_index]:
                 self.board.rows[row_index][cell_index] = self.board.rows[row_index][cell_index] * 2
                 self.board.rows[row_index - 1][cell_index] = 0
+                self.score += self.board.rows[row_index][cell_index]
                 self.move_cell(row_index, cell_index, True)
             else:
                 # print('some random number, heading back now')

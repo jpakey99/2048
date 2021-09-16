@@ -1,5 +1,7 @@
 # from UserInterface.KivyGUI import Cell
 from Simulations.simulation import RandomSimulation
+from Simulations.ai import CornerSimulation
+from Simulations.monte_carlo import MonteCarlo
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 # UI Elements
@@ -56,7 +58,7 @@ class Cell(Button):
 
 
 class SimulationUI(GridLayout):
-    def __init__(self, board: Board, simulation:RandomSimulation, **kwargs):
+    def __init__(self, board: Board, simulation, **kwargs):
         super().__init__(**kwargs)
         self.simulation = simulation
         self.cols, self.rows = 4,4
@@ -80,7 +82,7 @@ class SimulationUI(GridLayout):
 
     def run_simulation(self, _):
         if self.board.is_game_over():
-            self.clear_widgets()
+            # self.clear_widgets()
             self.game_over = True
         else:
             move_made = False
@@ -93,10 +95,10 @@ class GameApp(App):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         board = Board()
-        self.gui = SimulationUI(board, RandomSimulation(board))
+        self.gui = SimulationUI(board, MonteCarlo(board))
 
     def build(self):
-        clock = Clock.schedule_interval(self.gui.run_simulation, 1)
+        clock = Clock.schedule_interval(self.gui.run_simulation, 1/5)
         if self.gui.game_over:
             Clock.unschedule(self.gui.run_simulation)
         return self.gui
